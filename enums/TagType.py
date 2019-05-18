@@ -7,3 +7,4 @@ class TagType(Enum):
     ACTIVITY = "activity"
     COLOUR = "colour"
     BACKGROUND = "background activity"
+    PAGE = "page"

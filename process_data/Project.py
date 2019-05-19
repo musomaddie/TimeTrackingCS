@@ -7,5 +7,9 @@ class Project:
             towards this project
     """
     def __init__(self,
-                 name):
-        pass
+                 name,
+                 entries):
+        self.name = name
+        # NOTE: could perhaps open the file based on the project name and add
+        # entries here instead of read_data
+        self.entries = entries

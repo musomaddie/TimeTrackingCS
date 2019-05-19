@@ -1,5 +1,6 @@
 import csv
 from Entry import Entry
+from Project import Project
 
 
 def collect_entries(file):
@@ -30,11 +31,17 @@ def collect_entries(file):
                                  line[6],  # description
                                  line[7])  # tags
                            )
+    return entries
 
 
 # This is just for my own testing
 # NOTE: this requires this to be run in the same location as these files
 files = ["startingData1.csv",
          "startingData2.csv"]
+projects = {}
+p = ["Harry Potter Book Collage",
+     "Hogwarts Crest"]
+i = 0
 for f in files:
-    collect_entries(f)
+    projects[p] = Project(p, collect_entries(f))
+    i += 1

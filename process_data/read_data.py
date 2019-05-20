@@ -34,14 +34,16 @@ def collect_entries(file):
     return entries
 
 
-# This is just for my own testing
-# NOTE: this requires this to be run in the same location as these files
-files = ["startingData1.csv",
-         "startingData2.csv"]
-projects = {}
-p = ["Harry Potter Book Collage",
-     "Hogwarts Crest"]
-i = 0
-for f in files:
-    projects[p] = Project(p, collect_entries(f))
-    i += 1
+def make_projects():
+    # NOTE: the content of this will change later, currently is just to allow
+    # my own testing
+    files = ["startingData1.csv",
+             "startingData2.csv"]
+    projects = {}
+    p = ["Harry Potter Book Collage",
+         "Hogwarts Crest"]
+    i = 0
+    for f in files:
+        projects[p[i]] = Project(p[i], collect_entries(f))
+        i += 1
+    return projects

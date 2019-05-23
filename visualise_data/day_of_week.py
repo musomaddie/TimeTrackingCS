@@ -1,7 +1,5 @@
 import os
 import sys
-import numpy as np
-import matplotlib.pyplot as plt
 from datetime import timedelta
 
 sys.path.insert(0,
@@ -10,6 +8,7 @@ sys.path.insert(0,
 
 from process_data.read_data import make_projects
 from enums.Weekday import Weekday
+from graphs.BarGraph import make_bar_graph
 
 
 def _get_hours_per_dow(entries):
@@ -45,7 +44,6 @@ def bar_graph(project):
 
     hours = _make_list(_get_hours_per_dow(project.entries))
     seconds = _to_seconds(hours)
-    print(hours, seconds)
     labels = ["Monday",
               "Tuesday",
               "Wednesday",
@@ -54,13 +52,14 @@ def bar_graph(project):
               "Saturday",
               "Sunday"]
 
-    index = np.arange(len(labels))
-    plt.bar(index, seconds)
-    plt.xlabel("Day", fontsize=5)
-    plt.ylabel("Time Spent (hours)", fontsize=5)
-    plt.xticks(index, labels, fontsize=5, rotation=5)
-    plt.title("Total Time Spent Stitching By Weekday")
-    plt.show()
+    make_bar_graph(labels=labels,
+                   data=seconds,
+                   xLabel="Day",
+                   yLabel="Time Spent (hours)",
+                   title="{}\nTotal Time Spent By Weekday"
+                   .format(project.name),
+                   filename="{}_total_time_weekday".format(project.name))
+
 
 projects = make_projects()
 for p in projects:

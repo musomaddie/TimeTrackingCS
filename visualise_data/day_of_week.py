@@ -16,9 +16,10 @@ def _colours():
     tuesday_colour = "#186625"
     wednesday_colour = "#1d872f"
     thursday_colour = "#13a52b"
-    friday_colour = "#18c935"  # Change
-    saturday_colour = "#58e870"  # Change
+    friday_colour = "#1abc35"
+    saturday_colour = "#22d63f"
     sunday_colour = "#83e293"  # Change
+    sunday_colour = "#2ae048"
     return [
         monday_colour,
         tuesday_colour,

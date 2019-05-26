@@ -7,11 +7,15 @@ def make_bar_graph(labels,
                    xLabel,
                    yLabel,
                    title,
-                   filename):
+                   filename,
+                   color="#3d1215"):
     index = np.arange(len(labels))
-    plt.bar(index, data)
-    plt.xlabel(xLabel, fontsize=5)
-    plt.ylabel(yLabel, fontsize=5)
-    plt.xticks(index, labels, fontsize=5, rotation=5)
+
+    plt.style.use("seaborn")
+    plt.bar(index, data, color=color)
+    plt.xlabel(xLabel)
+    plt.ylabel(yLabel)
+    plt.xticks(index, labels, fontsize=8)
     plt.title(title)
     plt.savefig("graphImages/barGraphs/{}.png".format(filename))
+    plt.close()

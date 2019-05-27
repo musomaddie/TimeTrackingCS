@@ -13,3 +13,7 @@ class Project:
         # NOTE: could perhaps open the file based on the project name and add
         # entries here instead of read_data
         self.entries = entries
+        self.entries_by_order = entries
+
+    def filename(self):
+        return self.name.replace(" ", "_")

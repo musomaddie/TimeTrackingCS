@@ -1,5 +1,6 @@
 import os
 import sys
+import imageio
 from datetime import timedelta
 
 sys.path.insert(0,
@@ -18,7 +19,6 @@ def _colours():
     thursday_colour = "#13a52b"
     friday_colour = "#1abc35"
     saturday_colour = "#22d63f"
-    sunday_colour = "#83e293"  # Change
     sunday_colour = "#2ae048"
     return [
         monday_colour,
@@ -151,20 +151,31 @@ def _labels():
            "Sunday"]
 
 
+def _make_bar_graph(data, yLabel, title, filename, for_animation=False):
+    make_bar_graph(labels=_labels(),
+                   data=data,
+                   xLabel="Day",
+                   yLabel=yLabel,
+                   title=title,
+                   color=_colours(),
+                   filename=filename,
+                   for_animation=for_animation)
+
+
+def _total_bar_graph(entries, project, count="", for_animation=False):
+    _make_bar_graph(data=_to_hours(_make_list(_get_time_per_dow(entries))),
+                    yLabel="Time Spent (hours)",
+                    title="{}\nTotal Time Spent By Weekday".format(
+                        project.name),
+                    filename="{}_total_time_weekday{}".format(
+                        project.filename(), count),
+                    for_animation=for_animation)
+
+
 def basic_bar_graph(project):
     """ Creates a bar graph showing the number of hours of work grouped by the
     days of the week """
-    hours = _to_hours(_make_list(_get_time_per_dow(project.entries)))
-
-    make_bar_graph(labels=_labels(),
-                   data=hours,
-                   xLabel="Day",
-                   yLabel="Time Spent (hours)",
-                   title="{}\nTotal Time Spent By Weekday".format(
-                       project.name),
-                   color=_colours(),
-                   filename="{}_total_time_weekday".format(
-                       project.name.replace(" ", "_")))
+    _total_bar_graph(project.entries, project)
 
 
 def average_bar_graph(project):
@@ -172,15 +183,12 @@ def average_bar_graph(project):
     by the days of the week """
     avg_minutes = _make_list(_get_time_per_dow_avg(project.entries))
 
-    make_bar_graph(labels=_labels(),
-                   data=avg_minutes,
-                   xLabel="Day",
-                   yLabel="Average Time Spent (minutes)",
-                   color=_colours(),
-                   title="{}\nAverage Time Spent By Weekday".format(
-                       project.name),
-                   filename="{}_avg_time_weekday".format(
-                       project.name.replace(" ", "_")))
+    _make_bar_graph(data=avg_minutes,
+                    yLabel="Average Time Spent (minutes)",
+                    title="{}\nAverage Time Spent By Weekday".format(
+                        project.name),
+                    filename="{}_avg_time_weekday".format(
+                        project.filename()))
 
 
 def median_bar_graph(project):
@@ -190,15 +198,47 @@ def median_bar_graph(project):
     # crest
     median_minutes = _to_minutes(
         _make_list(_get_time_per_dow_med(project.entries)))
-    make_bar_graph(labels=_labels(),
-                   data=median_minutes,
-                   xLabel="Day",
-                   yLabel="Median Time Spent (minutes)",
-                   title="{}\nMedian Time Spent By Weekday".format(
-                       project.name),
-                   color=_colours(),
-                   filename="{}_med_time_weekday".format(
-                       project.name.replace(" ", "_")))
+    _make_bar_graph(data=median_minutes,
+                    yLabel="Median Time Spent (minutes)",
+                    title="{}\nMedian Time Spent By Weekday".format(
+                        project.name),
+                    filename="{}_med_time_weekday".format(
+                        project.filename()))
+
+
+def _find_all_filenames(project):
+    filenames = []
+    for i in range(len(project.entries)):
+        filenames.append(
+            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
+            .format(project.filename(), i))
+    return filenames
+
+
+def _find_all_images(filenames, project):
+    images = []
+    for filename in filenames:
+        images.append(imageio.imread(filename))
+    # Hold the last images for longer
+    for _ in range(20):
+        images.append(imageio.imread(
+            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
+            .format(project.filename(), len(project.entries) - 1)))
+    imageio.mimsave(
+        "graphImages/barGraphs/{}_total_time_weekday_incremental.gif"
+        .format(project.filename()), images)
+
+
+def animation_bar_graph(project):
+    """ Creates a gif of the bar graph as it grows overtime. Only deals with
+        the total time stitched """
+
+    # Make diagrams for all the steps
+    for i in range(len(project.entries)):
+        _total_bar_graph(project.entries_by_order[:i+1], project, i, True)
+
+    # put them all into one image
+    _find_all_images(_find_all_filenames(project), project)
 
 
 projects = make_projects()
@@ -206,3 +246,4 @@ for p in projects:
     basic_bar_graph(projects[p])
     average_bar_graph(projects[p])
     median_bar_graph(projects[p])
+    animation_bar_graph(projects[p])

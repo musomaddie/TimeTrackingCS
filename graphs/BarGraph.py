@@ -8,7 +8,8 @@ def make_bar_graph(labels,
                    yLabel,
                    title,
                    filename,
-                   color="#3d1215"):
+                   color="#3d1215",
+                   for_animation=False):
     index = np.arange(len(labels))
 
     plt.style.use("seaborn")
@@ -17,5 +18,9 @@ def make_bar_graph(labels,
     plt.ylabel(yLabel)
     plt.xticks(index, labels, fontsize=8)
     plt.title(title)
-    plt.savefig("graphImages/barGraphs/{}.png".format(filename))
+    if for_animation:
+        plt.savefig("graphImages/animationProcessing/{}.png".format(filename))
+    else:
+        # TODO: group images by project name as well.
+        plt.savefig("graphImages/barGraphs/{}.png".format(filename))
     plt.close()

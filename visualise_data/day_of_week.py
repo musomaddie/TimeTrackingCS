@@ -241,9 +241,18 @@ def animation_bar_graph(project):
     _find_all_images(_find_all_filenames(project), project)
 
 
+def make_pie_graph(project):
+    """ Creates a pie graph showing the number of hours of work grouped by the
+    days of the week """
+
+
 projects = make_projects()
 for p in projects:
+    """ Drawing bar graphs!
     basic_bar_graph(projects[p])
     average_bar_graph(projects[p])
     median_bar_graph(projects[p])
     animation_bar_graph(projects[p])
+    """
+    # Draw pie graphs!
+    make_pie_graph(projects[p])

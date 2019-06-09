@@ -1,15 +1,12 @@
 import os
 import sys
-import imageio
 from datetime import timedelta
 
 sys.path.insert(0,
                 os.path.dirname(os.path.realpath(__file__))[
-                    0:-len("visualise_data")])
+                    0:-len("visualise_data/day_of_week")])
 
-from process_data.read_data import make_projects
 from enums.Weekday import Weekday
-from graphs.BarGraph import make_bar_graph
 
 
 def get_time_per_dow(entries):

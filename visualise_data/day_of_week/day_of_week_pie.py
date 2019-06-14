@@ -14,10 +14,21 @@ from visualise_data.day_of_week.manager import to_hours
 from visualise_data.day_of_week.manager import labels
 
 
+def _colours():
+    return ["#f93b3b",
+            "#f9973b",
+            "#f9e63b",
+            "#3bf968",
+            "#3bddf9",
+            "#4e3bf9",
+            "#c43bf9"]
+
+
 def _make_pie_chart(data, filename):
     make_pie_chart(
         labels=labels(),
         data=data,
+        colours=_colours(),
         filename=filename)
 
 

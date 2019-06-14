@@ -16,11 +16,13 @@ def _make_display_label(label, data, i):
 
 def make_pie_chart(labels,
                    data,
+                   colours,
                    filename):
     labels = labels
     patches, texts = plt.pie(data,
                              wedgeprops=dict(width=0.5),
                              startangle=90,
+                             colors=colours,
                              counterclock=False)
 
     bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)

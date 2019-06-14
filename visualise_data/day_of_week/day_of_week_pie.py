@@ -14,7 +14,9 @@ from visualise_data.day_of_week.manager import to_hours
 from visualise_data.day_of_week.manager import labels
 
 
-def _make_pie_chart(data,filename):
+def _make_pie_chart(data, filename):
+    # TODO: sorting labels correctly: if I reverse them it looks bad on labels
+    # on side
     make_pie_chart(
         labels=labels(),
         data=data,

@@ -12,10 +12,12 @@ from graphs.BarGraph import make_bar_graph
 from visualise_data.day_of_week.manager import get_time_per_dow
 from visualise_data.day_of_week.manager import get_time_per_dow_avg
 from visualise_data.day_of_week.manager import get_time_per_dow_med
+from visualise_data.day_of_week.manager import find_all_filenames
+from visualise_data.day_of_week.manager import find_all_images
+from visualise_data.day_of_week.manager import labels
 from visualise_data.day_of_week.manager import make_list
 from visualise_data.day_of_week.manager import to_hours
 from visualise_data.day_of_week.manager import to_minutes
-from visualise_data.day_of_week.manager import labels
 
 
 def _colours():
@@ -109,27 +111,6 @@ def median_bar_graph(project):
                         project.filename()))
 
 
-def _find_all_filenames(project):
-    filenames = []
-    for i in range(len(project.entries)):
-        filenames.append(
-            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
-            .format(project.filename(), i))
-    return filenames
-
-
-def _find_all_images(filenames, project, graph_type):
-    images = []
-    for filename in filenames:
-        images.append(imageio.imread(filename))
-    # Hold the last images for longer
-    for _ in range(20):
-        images.append(imageio.imread(
-            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
-            .format(project.filename(), len(project.entries) - 1)))
-    imageio.mimsave(
-        "graphImages/{}/{}_total_time_weekday_incremental.gif"
-        .format(graph_type, project.filename()), images)
 
 
 def animation_bar_graph(project):
@@ -141,7 +122,7 @@ def animation_bar_graph(project):
         _total_bar_graph(project.entries_by_order[:i+1], project, i, True)
 
     # put them all into one image
-    _find_all_images(_find_all_filenames(project), project, "barGraphs")
+    find_all_images(find_all_filenames(project), project, "barGraphs")
 
 
 def make_pie_graph(project):

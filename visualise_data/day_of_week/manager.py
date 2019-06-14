@@ -1,5 +1,6 @@
 import os
 import sys
+import imageio
 from datetime import timedelta
 
 sys.path.insert(0,
@@ -7,6 +8,29 @@ sys.path.insert(0,
                     0:-len("visualise_data/day_of_week")])
 
 from enums.Weekday import Weekday
+
+
+def find_all_filenames(project):
+    filenames = []
+    for i in range(len(project.entries)):
+        filenames.append(
+            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
+            .format(project.filename(), i))
+    return filenames
+
+
+def find_all_images(filenames, project, graph_type):
+    images = []
+    for filename in filenames:
+        images.append(imageio.imread(filename))
+    # Hold the last images for longer
+    for _ in range(20):
+        images.append(imageio.imread(
+            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
+            .format(project.filename(), len(project.entries) - 1)))
+    imageio.mimsave(
+        "graphImages/{}/{}_total_time_weekday_incremental.gif"
+        .format(graph_type, project.filename()), images)
 
 
 def get_time_per_dow(entries):

@@ -14,10 +14,11 @@ from visualise_data.day_of_week.manager import to_hours
 from visualise_data.day_of_week.manager import labels
 
 
-def _make_pie_chart(data):
+def _make_pie_chart(data,filename):
     make_pie_chart(
         labels=labels(),
-        data=data)
+        data=data,
+        filename=filename)
     # TODO: add colours etc
 
 
@@ -25,7 +26,8 @@ def make_pie_graph(project):
     """ Creates a pie graph showing the number of hours of work grouped by the
     days of the week """
 
-    _make_pie_chart(to_hours(make_list(get_time_per_dow(project.entries))))
+    _make_pie_chart(to_hours(make_list(get_time_per_dow(project.entries))),
+                    project.filename())
 
 
 projects = make_projects()

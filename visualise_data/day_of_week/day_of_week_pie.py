@@ -15,13 +15,10 @@ from visualise_data.day_of_week.manager import labels
 
 
 def _make_pie_chart(data, filename):
-    # TODO: sorting labels correctly: if I reverse them it looks bad on labels
-    # on side
     make_pie_chart(
         labels=labels(),
         data=data,
         filename=filename)
-    # TODO: add colours etc
 
 
 def make_pie_graph(project):

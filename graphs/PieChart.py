@@ -17,8 +17,15 @@ def _make_display_label(label, data, i):
 def make_pie_chart(labels,
                    data,
                    colours,
-                   filename):
+                   title,
+                   filename,
+                   for_animation=False):
     labels = labels
+    print(data)
+    if sum(x for x in data) < 1:
+        # Convert into a percentage
+        data = [e / sum(x for x in data) for e in data]
+        print(data)
     patches, texts = plt.pie(data,
                              wedgeprops=dict(width=0.5),
                              startangle=90,
@@ -28,8 +35,9 @@ def make_pie_chart(labels,
     bbox_props = dict(boxstyle="square,pad=0.3", fc="w", ec="k", lw=0.72)
     kw = dict(arrowprops=dict(arrowstyle="-"),
               bbox=bbox_props, zorder=0, va="center")
-    # plt.legend(patches, labels, loc="best")
+    print("Working on {}".format(filename))
     for i, p in enumerate(patches):
+        # TODO: issue with the angles being the same??
         ang = (p.theta2 - p.theta1)/2. + p.theta1
         y = np.sin(np.deg2rad(ang))
         x = np.cos(np.deg2rad(ang))
@@ -40,7 +48,12 @@ def make_pie_chart(labels,
                      xy=(x, y), xytext=(1.35*np.sign(x), 1.4*y),
                      horizontalalignment=horizontalalignment, **kw)
     plt.axis('equal')  # ensures a circle
+    plt.title(title, y=1.18)
     plt.autoscale()
-    plt.savefig("graphImages/pieCharts/{}.png".format(filename),
-                bbox_inches="tight")
+    if for_animation:
+        plt.savefig("graphImages/animationProcessing/{}.png".format(filename),
+                    bbox_inches="tight")
+    else:
+        plt.savefig("graphImages/barGraphs/{}.png".format(filename),
+                    bbox_inches="tight")
     plt.close()

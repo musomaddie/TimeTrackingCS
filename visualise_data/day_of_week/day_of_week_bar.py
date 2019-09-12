@@ -56,11 +56,11 @@ def _calculate_med(items):
     return (i1 + i2) / 2
 
 
-def _make_bar_graph(data, yLabel, title, filename, for_animation=False):
+def _make_bar_graph(data, y_title, title, filename, for_animation=False):
     make_bar_graph(labels=labels(),
                    data=data,
-                   xLabel="Day",
-                   yLabel=yLabel,
+                   x_title="Day",
+                   y_title=y_title,
                    title=title,
                    color=_colours(),
                    filename=filename,
@@ -69,7 +69,7 @@ def _make_bar_graph(data, yLabel, title, filename, for_animation=False):
 
 def _total_bar_graph(entries, project, count="", for_animation=False):
     _make_bar_graph(data=to_hours(make_list(get_time_per_dow(entries))),
-                    yLabel="Time Spent (hours)",
+                    y_title="Time Spent (hours)",
                     title="{}\nTotal Time Spent By Weekday".format(
                         project.name),
                     filename="{}_total_time_weekday{}".format(
@@ -89,7 +89,7 @@ def average_bar_graph(project):
     avg_minutes = make_list(get_time_per_dow_avg(project.entries))
 
     _make_bar_graph(data=avg_minutes,
-                    yLabel="Average Time Spent (minutes)",
+                    y_title="Average Time Spent (minutes)",
                     title="{}\nAverage Time Spent By Weekday".format(
                         project.name),
                     filename="{}_avg_time_weekday".format(
@@ -104,7 +104,7 @@ def median_bar_graph(project):
     median_minutes = to_minutes(
         make_list(get_time_per_dow_med(project.entries)))
     _make_bar_graph(data=median_minutes,
-                    yLabel="Median Time Spent (minutes)",
+                    y_title="Median Time Spent (minutes)",
                     title="{}\nMedian Time Spent By Weekday".format(
                         project.name),
                     filename="{}_med_time_weekday".format(
@@ -138,4 +138,4 @@ for p in projects:
     basic_bar_graph(projects[p])
     average_bar_graph(projects[p])
     median_bar_graph(projects[p])
-    animation_bar_graph(projects[p])
+    # animation_bar_graph(projects[p])

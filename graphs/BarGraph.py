@@ -16,7 +16,11 @@ def make_bar_graph(labels,
                       show_legend=False)
     chart.x_labels = labels
     chart.add(short_y_title, _create_data_dict(data, color))
-    chart.render_to_file("graphImages/barGraphs/{}.svg".format(filename))
+    if for_animation:
+        chart.render_to_png("graphImages/animationProcessing/{}.png".format(
+            filename))
+    else:
+        chart.render_to_png("graphImages/barGraphs/{}.png".format(filename))
 
 
 def _create_data_dict(values, color):

@@ -111,16 +111,16 @@ def median_bar_graph(project):
                         project.filename()))
 
 
-
-
 def animation_bar_graph(project):
     """ Creates a gif of the bar graph as it grows overtime. Only deals with
         the total time stitched """
 
     # Make diagrams for all the steps
     for i in range(len(project.entries)):
+        print("Drawing {}".format(i))
         _total_bar_graph(project.entries_by_order[:i+1], project, i, True)
 
+    # TODO: group by type of image as well (e.g. bar)
     # put them all into one image
     find_all_images(find_all_filenames(project), project, "barGraphs")
 
@@ -138,4 +138,4 @@ for p in projects:
     basic_bar_graph(projects[p])
     average_bar_graph(projects[p])
     median_bar_graph(projects[p])
-    # animation_bar_graph(projects[p])
+    animation_bar_graph(projects[p])

@@ -16,12 +16,14 @@ def find_all_filenames(project):
         filenames.append(
             "graphImages/animationProcessing/{}_total_time_weekday{}.png"
             .format(project.filename(), i))
+    print(filenames)
     return filenames
 
 
 def find_all_images(filenames, project, graph_type):
     images = []
     for filename in filenames:
+        print("Trying to find: {}".format(filename))
         images.append(imageio.imread(filename))
     # Hold the last images for longer
     for _ in range(20):

@@ -123,9 +123,7 @@ def animation_bar_graph(project):
     # put them all into one image
     folder = "bar"
     find_all_images(find_all_filenames(project, folder),
-                    folder,
-                    project,
-                    "barGraphs")
+                    folder, project, "barGraphs")
 
 
 projects = make_projects()

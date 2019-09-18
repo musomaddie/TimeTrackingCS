@@ -10,26 +10,24 @@ sys.path.insert(0,
 from enums.Weekday import Weekday
 
 
-def find_all_filenames(project):
+def find_all_filenames(project, folder):
     filenames = []
     for i in range(len(project.entries)):
         filenames.append(
-            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
-            .format(project.filename(), i))
-    print(filenames)
+            "graphImages/animationProcessing/{}/{}_total_time_weekday{}.png"
+            .format(folder, project.filename(), i))
     return filenames
 
 
-def find_all_images(filenames, project, graph_type):
+def find_all_images(filenames, folder, project, graph_type):
     images = []
     for filename in filenames:
-        print("Trying to find: {}".format(filename))
         images.append(imageio.imread(filename))
     # Hold the last images for longer
     for _ in range(20):
         images.append(imageio.imread(
-            "graphImages/animationProcessing/{}_total_time_weekday{}.png"
-            .format(project.filename(), len(project.entries) - 1)))
+            "graphImages/animationProcessing/{}/{}_total_time_weekday{}.png"
+            .format(folder, project.filename(), len(project.entries) - 1)))
     imageio.mimsave(
         "graphImages/{}/{}_total_time_weekday_incremental.gif"
         .format(graph_type, project.filename()), images)

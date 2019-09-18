@@ -17,8 +17,8 @@ def make_bar_graph(labels,
     chart.x_labels = labels
     chart.add(short_y_title, _create_data_dict(data, color))
     if for_animation:
-        chart.render_to_png("graphImages/animationProcessing/{}.png".format(
-            filename))
+        chart.render_to_png(
+            "graphImages/animationProcessing/bar/{}.png".format(filename))
     else:
         chart.render_to_png("graphImages/barGraphs/{}.png".format(filename))
 

@@ -19,6 +19,8 @@ def make_bar_graph(labels,
     if for_animation:
         chart.render_to_png(
             "graphImages/animationProcessing/bar/{}.png".format(filename))
+        # TODO: if processing for animation, go through and delete all images
+        # when complete
     else:
         chart.render_to_png("graphImages/barGraphs/{}.png".format(filename))
 

@@ -55,10 +55,14 @@ def animation_pie_graph(project):
         make_pie_graph(project.entries_by_order[:i+1], project, i, True)
 
     # Put them all into one image
-    find_all_images(find_all_filenames(project), project, "pieCharts")
+    folder_type = "pie"
+    find_all_images(find_all_filenames(project, folder_type),
+                    folder_type,
+                    project,
+                    "pieCharts")
 
 
 projects = make_projects()
 for p in projects:
     make_pie_graph(projects[p].entries, projects[p])
-    # animation_pie_graph(projects[p])
+    animation_pie_graph(projects[p])

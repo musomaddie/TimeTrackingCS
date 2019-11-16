@@ -27,9 +27,15 @@ def make_pie_chart(labels,
     pie_chart = pygal.Pie(title=title,
                           print_labels=True,
                           style=Style(colors=colours))
-    print("before my pie chart")
     for i, label in enumerate(labels):
         # TODO: make label text look pretty
         pie_chart.add(label, [{'value': data[i],
                                'label': _display_percent(data, i)}])
-    pie_chart.render_to_png("graphImages/pieCharts/{}.png".format(filename))
+    if for_animation:
+        pie_chart.render_to_png(
+            "graphImages/animationProcessing/pie/{}.png".format(filename))
+        # TODO: if processing for animation go through and delete all halfway
+        # images when complete -> means can get rid of some subfolders too
+    else:
+        pie_chart.render_to_png(
+            "graphImages/pieCharts/{}.png".format(filename))

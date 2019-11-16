@@ -61,4 +61,4 @@ def animation_pie_graph(project):
 projects = make_projects()
 for p in projects:
     make_pie_graph(projects[p].entries, projects[p])
-    animation_pie_graph(projects[p])
+    # animation_pie_graph(projects[p])

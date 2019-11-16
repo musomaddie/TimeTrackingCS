@@ -31,20 +31,3 @@ def _create_data_dict(values, color):
         modified_values.append({"value": value,
                                 "color": color[index]})
     return modified_values
-
-    """
-    index = np.arange(len(labels))
-
-    plt.style.use("seaborn")
-    plt.bar(index, data, color=color)
-    plt.xlabel(xLabel)
-    plt.ylabel(yLabel)
-    plt.xticks(index, labels, fontsize=8)
-    plt.title(title)
-    if for_animation:
-        plt.savefig("graphImages/animationProcessing/{}.png".format(filename))
-    else:
-        # TODO: group images by project name as well.
-        plt.savefig("graphImages/barGraphs/{}.png".format(filename))
-    plt.close()
-    """

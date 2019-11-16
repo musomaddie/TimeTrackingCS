@@ -21,13 +21,13 @@ from visualise_data.day_of_week.manager import to_minutes
 
 
 def _colours():
-    monday_colour = "#165621"
-    tuesday_colour = "#186625"
-    wednesday_colour = "#1d872f"
-    thursday_colour = "#13a52b"
-    friday_colour = "#1abc35"
-    saturday_colour = "#22d63f"
-    sunday_colour = "#2ae048"
+    monday_colour = "#f93b3b"
+    tuesday_colour = "#f9973b"
+    wednesday_colour = "#f9e63b"
+    thursday_colour = "#3bf968"
+    friday_colour = "#3bddf9"
+    saturday_colour = "#4e3bf9"
+    sunday_colour = "#c43bf9"
     return [
         monday_colour,
         tuesday_colour,
